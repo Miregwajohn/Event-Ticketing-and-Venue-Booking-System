@@ -1,0 +1,211 @@
+### Get all users
+GET http://localhost:5000/api/users
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJlbWFpbCI6ImpvaG5taXJlZ3dhN0BnbWFpbC5jb20iLCJmaXJzdG5hbWUiOiJKb2huIiwibGFzdG5hbWUiOiJBZG1pbiIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1MTg5MTY2OCwiaWF0IjoxNzUxODg4MDY4fQ.c1a7b04eOdXopOG-BwUe1N8NDSrMcAHoD316YZhoock
+
+### Register user
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+  "firstname": "Mose",
+  "lastname": "Wako",
+  "email": "mosejomire@gmail.com",
+  "password": "john",
+  "contactPhone": "0700000000",
+  "address": "Nairobi",
+  "role": "user"
+}
+
+### Login user
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  
+  "email": "mosejomire@gmail.com",
+  "password": "john"
+
+}
+
+###Register admin
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+  "firstname": "John",
+  "lastname": "Admin",
+  "email": "johnmiregwa7@gmail.com",
+  "password": "john",
+  "contactPhone": "0711223344",
+  "address": "Nakuru",
+  "role": "admin"
+}
+
+### Login admin
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  
+  "email": "johnmiregwa7@gmail.com",
+  "password": "john"
+
+}
+
+
+
+### Create new user
+POST http://localhost:5000/api/users
+Content-Type: application/json
+
+{
+  "firstname": "John",
+  "lastname": "Wako",
+  "email": "john@gmail.com",
+  "password": "john",
+  "contactPhone": "0711111111",
+  "address": "Kisumu",
+  "role": "user"
+}
+
+
+### Get user by ID
+GET http://localhost:5000/api/users
+
+### Update user
+PUT http://localhost:5000/api/users/19
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJlbWFpbCI6ImpvaG5taXJlZ3dhN0BnbWFpbC5jb20iLCJmaXJzdG5hbWUiOiJKb2huIiwibGFzdG5hbWUiOiJBZG1pbiIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1MTUzNDgzMSwiaWF0IjoxNzUxNTMxMjMxfQ.A07pKOs8MVP4qqxhtcPQA6zklbCApESIiHlXe2yjkww
+Content-Type: application/json
+
+{
+  "firstname": "Mike",
+  "lastname": "Macs",
+  "email": "mike@gmail.com",
+  "password": "john",
+  "contactPhone": "0711111111",
+  "address": "Kisumu",
+  "role": "admin"
+}
+
+
+### Delete user
+DELETE http://localhost:5000/api/users/19
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJlbWFpbCI6ImpvaG5taXJlZ3dhN0BnbWFpbC5jb20iLCJmaXJzdG5hbWUiOiJKb2huIiwibGFzdG5hbWUiOiJBZG1pbiIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1MjE4NzU3MiwiaWF0IjoxNzUyMTgzOTcyfQ.WFL_khZokx4beGgT_dD0PHJ-gdB_ZHtptCzxGXw5Wks
+
+
+### Register User
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+  "firstname": "John",
+  "lastname": "Miregwa",
+  "email": "jmose708@gmail.com",
+  "password": "john",
+  "contactPhone": "0712345678",
+  "address": "Nairobi",
+  "role": "user"
+}
+
+### Login User
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "johnmiregwa7@gmail.com",
+  "password": "john"
+}
+
+
+
+
+
+
+//EVENTS
+### Get all events
+GET http://localhost:5000/api/events
+
+### Create new event
+POST http://localhost:5000/api/events
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIxLCJlbWFpbCI6ImpvaG5taXJlZ3dhN0BnbWFpbC5jb20iLCJmaXJzdG5hbWUiOiJKb250ZSIsImxhc3RuYW1lIjoiQWRtaW4iLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE3NTM0MTY3ODAsImlhdCI6MTc1MzQxMzE4MH0.w4iYXLVM2bVnWIh85M_8HdSD8gvGtkRDy0EOIAtiHhU
+Content-Type: application/json
+
+{
+  "title": "Event Illustration",
+  "description": "Overview of Events",
+  "venueId": 2,
+  "category": "Events",
+  "date": "2025-07-10",
+  "time": "20:00",
+  "ticketPrice": 1,
+  "ticketsTotal": 50,
+  "image": "EventIllustration.jpg"
+}
+
+
+### Get all bookings
+GET http://localhost:5000/api/bookings
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJlbWFpbCI6ImpvaG5taXJlZ3dhN0BnbWFpbC5jb20iLCJmaXJzdG5hbWUiOiJKb2huIiwibGFzdG5hbWUiOiJBZG1pbiIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1MTg5MTY2OCwiaWF0IjoxNzUxODg4MDY4fQ.c1a7b04eOdXopOG-BwUe1N8NDSrMcAHoD316YZhoock
+
+
+### Create new booking
+POST http://localhost:5000/api/bookings
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIxLCJlbWFpbCI6ImpvaG5taXJlZ3dhN0BnbWFpbC5jb20iLCJmaXJzdG5hbWUiOiJKb250ZSIsImxhc3RuYW1lIjoiQWRtaW4iLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE3NTI3MTIwNjYsImlhdCI6MTc1MjcwODQ2Nn0.SQgOcCpEkb2sp7v8Gm03VJbYwoKrPWk1NJh1M-O5zVs
+Content-Type: application/json
+
+{
+  "userId": 21,
+  "eventId": 9,
+  "quantity": 2,
+  "totalAmount": 3000
+}
+
+
+### Get all payments
+GET http://localhost:5000/api/payments
+
+### Create new payment
+POST http://localhost:5000/api/payments
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIxLCJlbWFpbCI6ImpvaG5taXJlZ3dhN0BnbWFpbC5jb20iLCJmaXJzdG5hbWUiOiJKb250ZSIsImxhc3RuYW1lIjoiQWRtaW4iLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE3NTI3MTc1NjgsImlhdCI6MTc1MjcxMzk2OH0.UH4jtsDcpWxa6xLavYzCiEv8uiMpTz6_ndNgIsTM5AU
+Content-Type: application/json
+
+{
+  "bookingId": 15,
+  "amount": 2500,
+  "paymentStatus": "Confirmed",
+  "paymentMethod": "Mpesa",
+  "transactionId": "TXN78900"
+}
+
+
+
+
+
+### Get all support tickets
+GET http://localhost:5000/api/support-tickets
+
+### Create support ticket
+POST http://localhost:5000/api/support-tickets
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIxLCJlbWFpbCI6ImpvaG5taXJlZ3dhN0BnbWFpbC5jb20iLCJmaXJzdG5hbWUiOiJKb2huIiwibGFzdG5hbWUiOiJBZG1pbiIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1MjYzNTA2MCwiaWF0IjoxNzUyNjMxNDYwfQ.OyduxO9kZmwAkRM0JG5R91XGUt-EB7DbNfGsT_7-rXE
+Content-Type: application/json
+
+{
+  "userId": 21,
+  "subject": "Payment problem",
+  "description": "My Ticket payment is not visbible"
+}
+
+### M-Pesa STK Push Test
+POST http://localhost:5000/api/mpesa/stkpush
+Content-Type: application/json
+
+{
+  "phone": "254111673171",
+  "amount": 1,
+    "bookingId": 30     
+}
+
+
+### Get OAuth token from Safaricom sandbox
+GET https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials
+Authorization: Basic THc5bXVHa3dnWHFTcHVNaXhzWE5wdEtWeDlwdEVTU3Q1NGg0U1RNZzlzSENRQ3kzWTp4b3g5ek9wWXh1YVFmQ250dlcwM2JBWE9oQnNkcldIMVVQWTdtVThGYW5BMTdoVlhtQzc4b3dYaGJrbks1Q3M5
