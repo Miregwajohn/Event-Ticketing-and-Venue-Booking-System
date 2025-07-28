@@ -20,7 +20,7 @@ const app: Application = express();
 
 // Enable CORS
 app.use(cors({
-  origin: "http://localhost:5173", 
+  origin: 'https://event-ticketing-frontend-zeta.vercel.app', 
   credentials: true               
 }));
 
