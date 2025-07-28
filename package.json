@@ -2,7 +2,7 @@
     "name": "event-ticketing-backend",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "dist/server.js",
     "scripts": {
         "dev": "tsx watch ./src/server.ts",
         "push": "drizzle-kit push",
