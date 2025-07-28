@@ -24,6 +24,12 @@ app.use(cors({
   credentials: true               
 }));
 
+// ✅ Add this health check route here
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ status: 'ok', timestamp: new Date() });
+});
+
+
 
 // Middleware
 app.use(express.json());
