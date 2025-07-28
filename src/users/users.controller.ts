@@ -11,15 +11,21 @@ import {
 export const getUsers = async (_req: Request, res: Response) => {
   try {
     const users = await getUsersService();
+
     if (!users || users.length === 0) {
-     res.status(404).json({ message: "No users found" });
-      return ;
+      return res.status(404).json({ message: "No users found" });
     }
-    res.status(200).json(users);
+
+    // Remove password from each user object before sending response
+    const usersWithoutPassword = users.map(({ password, ...user }) => user);
+
+    return res.status(200).json(usersWithoutPassword);
+
   } catch (error: any) {
-    res.status(500).json({ error: error.message || "Failed to fetch users" });
+    return res.status(500).json({ error: error.message || "Failed to fetch users" });
   }
 };
+
 
 // GET current user 
 export const getCurrentUserProfile = async (req: Request, res: Response) => {
@@ -55,8 +61,12 @@ export const getUserById = async (req: Request, res: Response) => {
     const user = await getUserByIdService(userId);
     if (!user) {
       res.status(404).json({ message: "User not found" });
-      return ;
-    }
+         }  else {
+           // Remove password from user object before sending response
+            const { password, ...userWithoutPassword } = user;
+            res.status(200).json(userWithoutPassword);
+         }
+
     res.status(200).json(user);
   } catch (error: any) {
     res.status(500).json({ error: error.message || "Failed to fetch user" });
@@ -101,7 +111,7 @@ export const updateUser = async (req: Request, res: Response) => {
 
   const allowedFields = [
     "firstname", "lastname", "email", "password",
-    "contactPhone", "address", //omit role, is_active from frontend updates
+    "contactPhone", "address", "profileUrl" // ✅ added profileUrl here
   ];
 
   const updateData: Record<string, any> = {};
@@ -116,17 +126,16 @@ export const updateUser = async (req: Request, res: Response) => {
   }
 
   try {
-    await updateUserService(userId, updateData); // no need to capture message
+    await updateUserService(userId, updateData);
 
-    // ✅ Re-fetch full user for Redux hydration
     const updatedUser = await getUserByIdService(userId);
-
-    return res.status(200).json(updatedUser); // ✅ return flat user object
+    return res.status(200).json(updatedUser);
   } catch (error: any) {
     console.error("Update error:", error);
     return res.status(500).json({ error: error.message || "Failed to update user" });
   }
 };
+
 
 
 

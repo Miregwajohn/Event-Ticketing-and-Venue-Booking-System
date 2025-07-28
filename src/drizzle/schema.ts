@@ -26,6 +26,7 @@ export const users = pgTable("users", {
   contactPhone: varchar("contact_phone", { length: 20 }),
   address: text("address"),
   role: roleEnum("role").default("user").notNull(),
+  profileUrl: text('profile_url'),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow(),
 });

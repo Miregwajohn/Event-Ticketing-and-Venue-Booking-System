@@ -123,22 +123,25 @@ async function seed() {
   ]);
 
   // 6. Support Tickets
-  await db.insert(supportTickets).values([
-    {
-      ticketId: 1,
-      userId: 2,
-      subject: "Booking Error",
-      description: "I was charged twice for my ticket.",
-      status: "Open",
-    },
-    {
-      ticketId: 2,
-      userId: 1,
-      subject: "Event not showing",
-      description: "The event I created doesn't appear on the dashboard.",
-      status: "Resolved",
-    },
-  ]);
+await db.insert(supportTickets).values([
+  {
+    ticketId: 1,
+    userId: 2,
+    subject: "Booking Error",
+    description: "I was charged twice for my ticket.",
+    status: "Open",
+    caseNumber: "CASE-0001", // ✅ Add this
+  },
+  {
+    ticketId: 2,
+    userId: 1,
+    subject: "Event not showing",
+    description: "The event I created doesn't appear on the dashboard.",
+    status: "Resolved",
+    caseNumber: "CASE-0002", // ✅ Add this
+  },
+]);
+
 
   console.log("✅ Seeding complete!");
   process.exit(0);
