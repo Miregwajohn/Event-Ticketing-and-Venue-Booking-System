@@ -19,12 +19,26 @@ dotenv.config();
 const app: Application = express();
 
 // Enable CORS
+const allowedOrigins = [
+  'https://event-ticketing-frontend-zeta.vercel.app',
+];
+
 app.use(cors({
-  origin: 'https://event-ticketing-frontend-zeta.vercel.app', 
-  credentials: true               
+  origin: (origin, callback) => {
+    if (!origin || origin.startsWith('http://localhost')) {
+      callback(null, true);
+    } else if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
 }));
 
-// ✅ Add this health check route here
+
+
+//  Add this health check route here
 app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'ok', timestamp: new Date() });
 });

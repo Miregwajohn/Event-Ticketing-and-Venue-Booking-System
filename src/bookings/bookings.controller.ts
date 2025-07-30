@@ -55,7 +55,11 @@ export const getBookingById = async (req: Request, res: Response) => {
   try {
     const booking = await getBookingByIdService(id);
     if (!booking) return res.status(404).json({ message: "Booking not found" });
-    res.status(200).json(booking);
+    res.status(200).json({
+  ...booking,
+  paymentStatus: booking.payment?.[0]?.paymentStatus || "Pending",
+});
+
   } catch (error: any) {
     res.status(500).json({ error: error.message || "Failed to fetch booking" });
   }
@@ -113,7 +117,7 @@ export const createBooking = async (req: Request, res: Response) => {
 
     res.status(201).json({
       message: "Booking successful",
-      bookingId: booking.bookingId, // ✅ include the bookingId
+      bookingId: booking.bookingId, //  include the bookingId
     });
   } catch (error: any) {
     res.status(500).json({ error: error.message || "Failed to create booking" });

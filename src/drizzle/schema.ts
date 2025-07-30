@@ -108,6 +108,7 @@ export const payments = pgTable("payments", {
   paymentDate: timestamp("payment_date", { withTimezone: true }).defaultNow(),
   paymentMethod: varchar("payment_method", { length: 50 }),
   transactionId: varchar("transaction_id", { length: 100 }),
+  checkoutId: varchar("checkout_id", { length: 100 }), // NEW FIELD HERE
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow(),
 });

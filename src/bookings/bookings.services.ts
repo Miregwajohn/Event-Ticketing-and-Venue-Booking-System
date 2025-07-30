@@ -1,8 +1,19 @@
 import db from "../drizzle/db";
 import { bookings, events, TBookingsInsert, TBookingsSelect } from "../drizzle/schema";
 import { eq, desc } from "drizzle-orm";
+import { InferSelectModel } from "drizzle-orm";
 
-// GET all bookings
+//  Create a type that includes booking + relations
+type BookingWithRelations = InferSelectModel<typeof bookings> & {
+  user: any;
+  event: {
+    venue: any;
+    [key: string]: any;
+  };
+  payment: any[];
+};
+
+//  GET all bookings (optionally filtered by userId)
 export const getBookingsService = async (userId?: number) => {
   return await db.query.bookings.findMany({
     where: userId ? eq(bookings.userId, userId) : undefined,
@@ -15,20 +26,27 @@ export const getBookingsService = async (userId?: number) => {
   });
 };
 
-
-// GET booking by ID
-export const getBookingByIdService = async (id: number): Promise<TBookingsSelect | undefined> => {
+// GET booking by ID (with event + venue, user, and payment)
+export const getBookingByIdService = async (id: number): Promise<BookingWithRelations | undefined> => {
   return await db.query.bookings.findFirst({
     where: eq(bookings.bookingId, id),
+    with: {
+      event: {
+        with: {
+          venue: true,
+        },
+      },
+      user: true,
+      payment: true,
+    },
   });
 };
 
-//  NEW: Get bookings by user ID for MyBookings
+//  GET bookings for a specific user (MyBookings)
 export const getBookingsByUserService = async (userId: number) => {
   return await db.query.bookings.findMany({
     where: eq(bookings.userId, userId),
     with: {
-       
       event: true,
       payment: true,
     },
@@ -36,9 +54,7 @@ export const getBookingsByUserService = async (userId: number) => {
   });
 };
 
-
-
-//  SMART BOOKING SERVICE with checks
+// CREATE booking with stock check & price calculation
 export const createBookingWithLogic = async ({
   userId,
   eventId,
@@ -63,7 +79,7 @@ export const createBookingWithLogic = async ({
   // 2. Calculate total price
   const totalAmount = event.ticketPrice * quantity;
 
-  // 3. Insert booking and return the inserted record
+  // 3. Insert booking
   const [newBooking] = await db
     .insert(bookings)
     .values({
@@ -73,24 +89,24 @@ export const createBookingWithLogic = async ({
       totalAmount,
       bookingStatus: "Pending",
     })
-    .returning(); // ✅ Get the inserted row
+    .returning(); //  return inserted booking
 
-  // 4. Update ticketsSold
+  // 4. Update event ticket count
   await db
     .update(events)
     .set({ ticketsSold: (event.ticketsSold ?? 0) + quantity })
     .where(eq(events.eventId, eventId));
 
-  return newBooking; // ✅ Now returns bookingId, quantity, etc.
+  return newBooking;
 };
 
-
-// UPDATE booking
+// UPDATE booking by ID
 export const updateBookingService = async (
   id: number,
   data: Partial<TBookingsInsert>
 ): Promise<string> => {
-  const result = await db.update(bookings)
+  const result = await db
+    .update(bookings)
     .set(data)
     .where(eq(bookings.bookingId, id))
     .returning();
@@ -99,10 +115,10 @@ export const updateBookingService = async (
   return "Booking updated successfully";
 };
 
-
-// DELETE booking
+//  DELETE booking by ID
 export const deleteBookingService = async (id: number): Promise<string> => {
-  const result = await db.delete(bookings)
+  const result = await db
+    .delete(bookings)
     .where(eq(bookings.bookingId, id))
     .returning();
 
